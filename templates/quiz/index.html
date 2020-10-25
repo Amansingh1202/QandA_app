@@ -10,15 +10,17 @@
     <div id="vue-app">
         <div class="card">
             <h2>Sign Up</h2>
-            <form>
-                <label for="full-name">Enter Full Name:</label><br />
-                <input type="text" v-model='full_name' name="full-name" placeholder="Enter Full name" /><br />
-                <label for="email-name">Enter Email:</label><br />
-                <input type="email" name="email" placeholder="Enter Email" /><br />
-                <label for="password-name">Enter Password:</label><br />
-                <input type="password" name="password" placeholder="Enter Password" />
-                <button v-on:click.prevent="onSubmit" type="submit" value="submit">Submit</button>
-                <h3 class="message">[[ err ]]</h3>
+            <form @submit.prevent = "register" method="POST">
+                <label for="name">Enter Full Name:</label><br />
+                <input type="text" v-model='user.name' name="name" placeholder="Enter Full name" /><br />
+                <div class="error">[[ errors.name ]]</div>
+                <label for="email">Enter Email:</label><br />
+                <input v-model="user.email" name="email" placeholder="Enter Email" /><br />
+                <div class="error">[[ errors.email ]]</div>
+                <label for="password">Enter Password:</label><br />
+                <input type="password" v-model='user.password' name="password" placeholder="Enter Password" />
+                <div class="error">[[ errors.password ]]</div>
+                <button type="submit">Submit</button>
             </form>
             <form>
                 <h3>Already a member?Sign In</h3>
@@ -30,20 +32,57 @@
             el:'#vue-app',
             delimiters:['[[',']]'],
             data:{
-                full_name:'',
-                email:'',
-                password:'',
-                err:''
+                user:{
+                    name:'',
+                    email:'',
+                    password:'',
+                },
+                valid : true,
+                success : false,
+                errors:{},
+                message:null,
             },
             methods:{
-                onSubmit(){
-                    if (this.full_name  === '' || this.email === '' || this.password === '' ){
-                        this.err = 'Please fill all the fields';
-                        return this.err;
+                validateName(name){
+                    if (!name.length){
+                        return {valid:false,error:"This field is required"}
                     }
-                    else{
-                        this.err = '';
-                        return this.err;
+                    return {valid:true,error:null}
+                },
+                validateEmail(email){
+                    if (!email.length){
+                        return {valid:false,error:"This field is required"}
+                    }
+                    if (!email.match(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/)){
+                        return {valid:false,error:"Please,enter a valid email"}
+                    }
+                    return {valid:true,error:null}
+                },
+                validatePassword(password){
+                    if (!password.length){
+                        return {valid:false,error:"This field is required"}
+                    }
+                    if(password.length < 7){
+                        return {valid:true,error:"Password too short :("}
+                    }
+                    return {valid:true,error:null}
+                },
+                register(){
+                    this.errors = {}
+                    const vName = this.validateName(this.user.name);
+                    this.errors.name = vName.error;
+                    if(this.valid){
+                        this.valid = vName.valid
+                    }
+                    const vEmail = this.validateEmail(this.user.email);
+                    this.errors.email = vEmail.error;
+                    if(this.valid){
+                        this.valid = vEmail.valid
+                    }
+                    const vPassword = this.validatePassword(this.user.password);
+                    this.errors.password = vPassword.error;
+                    if(this.valid){
+                        this.valid = vPassword.valid
                     }
                 }
             }
@@ -53,15 +92,14 @@
     <style scoped>
         .card{
   width:32vw;
-  background-color: rgba(127,255,0,0.6);
+  background-color: rgba(128, 255, 0, 0.4);
   margin-left: 30vw;
   padding: 10px;
 }
-h2{
-  font-size:1.5em;
-  font-family: cursive;
-  color: maroon;
-  text-align: center;
+.error{
+  font-size:1.1em;
+  font-family:sans-serif;
+  color: red;
 }
 label{
   font-size: 1.1em;
