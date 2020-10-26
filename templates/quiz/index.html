@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+    {% load static %}
     <div id="vue-app">
         <div class="card">
             <h2>Sign Up</h2>
@@ -23,7 +24,7 @@
                 <button type="submit">Submit</button>
             </form>
             <form>
-                <h3>Already a member?Sign In</h3>
+                <h3>Already a member?<a href="#">Sign In</a></h3>
             </form>
         </div>
     </div>
@@ -90,27 +91,74 @@
         });
     </script>
     <style scoped>
+body{
+  width: 100vw;
+  height:100vh;
+  overflow: hidden;
+  background-color:aliceblue;
+  background-image: -moz-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("/static/quiz/images/background.jpg");
+  background-image: -webkit-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("/static/quiz/images/background.jpg");
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("/static/quiz/images/background.jpg") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h2{
+  margin-left: 13vw;
+  margin-top: -0.6vh;
+  color: lightcyan;
+}
         .card{
   width:32vw;
   background-color: rgba(128, 255, 0, 0.4);
-  margin-left: 30vw;
+  margin-left: 35vw;
   padding: 10px;
+  margin-top: 20vh;
 }
 .error{
   font-size:1.1em;
   font-family:sans-serif;
   color: red;
 }
+h3{
+  color: whitesmoke;
+  margin-left: 8vw;
+  font-size: 1.2em;
+  font-family: sans-serif;
+}
+a{
+  text-decoration: none;
+  margin-left: 1vw;
+  color: lightpink;
+}
 label{
   font-size: 1.1em;
   color:darkslateblue;
-  font-family: cursive;
+  font-family: sans-serif;
 }
 input{
   width: 31vw;
-  font-family: fantasy;
+  font-family: sans-serif;
   padding: 5px;
   color:darkgreen;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+label{
+  color: aliceblue;
+}
+button{
+  margin-left: 13vw;
+  margin-top: 1vh;
+  color:white;
+  background-color: purple;
+  font-size:1.1em;
+  border:none;
+  padding:5px 15px;
+  border-radius: 0.59;
+}
+button:hover{
+  background-color: pink;
+  color: gray;
 }
 .message{
   color: red;
