@@ -7,21 +7,21 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    {% load static %}
     <div id="vue-app">
         <div class="card">
             <h2>Sign Up</h2>
-            <form @submit.prevent = "register" method="POST">
-                <label for="name">Enter Full Name:</label><br />
-                <input type="text" v-model='user.name' name="name" placeholder="Enter Full name" /><br />
+            <form action="save/" id="myform" method="POST">
+              {% csrf_token %}  
+              <label for="name">Enter Full Name:</label><br />
+                <input @blur="register" type="text" v-model='user.name' name="name" placeholder="Enter Full name" /><br />
                 <div class="error">[[ errors.name ]]</div>
                 <label for="email">Enter Email:</label><br />
-                <input v-model="user.email" name="email" placeholder="Enter Email" /><br />
+                <input @blur="register" v-model="user.email" name="email" placeholder="Enter Email" /><br />
                 <div class="error">[[ errors.email ]]</div>
                 <label for="password">Enter Password:</label><br />
-                <input type="password" v-model='user.password' name="password" placeholder="Enter Password" />
+                <input @blur="register" type="password" v-model='user.password' name="password" placeholder="Enter Password" />
                 <div class="error">[[ errors.password ]]</div>
-                <button type="submit">Submit</button>
+                <button :disabled="valid" type="submit">Submit</button>
             </form>
             <form>
                 <h3>Already a member?<a href="#">Sign In</a></h3>
@@ -44,6 +44,9 @@
                 message:null,
             },
             methods:{
+              hello(){
+                alert('Hello');
+              },
                 validateName(name){
                     if (!name.length){
                         return {valid:false,error:"This field is required"}

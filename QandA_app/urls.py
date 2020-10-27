@@ -20,5 +20,7 @@ from quiz import views
 
 urlpatterns = [
     path('',views.index),
+    path('save/',views.save),
+    path('save/login/',views.login),
     path('admin/', admin.site.urls),
 ]
