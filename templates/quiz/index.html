@@ -21,7 +21,7 @@
                 <label for="password">Enter Password:</label><br />
                 <input @blur="register" type="password" v-model='user.password' name="password" placeholder="Enter Password" />
                 <div class="error">[[ errors.password ]]</div>
-                <button :disabled="valid" type="submit">Submit</button>
+                <button :disabled="anyError" type="submit">Submit</button>
             </form>
             <form>
                 <h3>Already a member?<a href="#">Sign In</a></h3>
@@ -39,9 +39,8 @@
                     password:'',
                 },
                 valid : true,
-                success : false,
                 errors:{},
-                message:null,
+                anyError:true,
             },
             methods:{
               hello(){
@@ -87,6 +86,13 @@
                     this.errors.password = vPassword.error;
                     if(this.valid){
                         this.valid = vPassword.valid
+                    }
+
+                    if((this.errors.email == null) && (this.errors.name == null) && (this.errors.password == null)){
+                      this.anyError = false;
+                    }
+                    else{
+                      this.anyError = true;
                     }
                 }
             }
