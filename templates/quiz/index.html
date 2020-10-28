@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In</title>
+    <title>Sign Up</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <div id="vue-app">
         <div class="card">
             <h2>Sign Up</h2>
-            <form action="save/" id="myform" method="POST">
+            <form action="save/" method="POST">
               {% csrf_token %}  
               <label for="name">Enter Full Name:</label><br />
                 <input @blur="register" type="text" v-model='user.name' name="name" placeholder="Enter Full name" /><br />
@@ -24,7 +24,7 @@
                 <button :disabled="anyError" type="submit">Submit</button>
             </form>
             <form>
-                <h3>Already a member?<a href="#">Sign In</a></h3>
+                <h3>Already a member?<a href="/login/">Sign In</a></h3>
             </form>
         </div>
     </div>
@@ -43,9 +43,6 @@
                 anyError:true,
             },
             methods:{
-              hello(){
-                alert('Hello');
-              },
                 validateName(name){
                     if (!name.length){
                         return {valid:false,error:"This field is required"}
@@ -118,7 +115,7 @@ h2{
 }
         .card{
   width:32vw;
-  background-color: rgba(128, 255, 0, 0.4);
+  background-color: rgba(128, 255, 0, 0.6);
   margin-left: 35vw;
   padding: 10px;
   margin-top: 20vh;
@@ -126,7 +123,7 @@ h2{
 .error{
   font-size:1.1em;
   font-family:sans-serif;
-  color: red;
+  color:red;
 }
 h3{
   color: whitesmoke;

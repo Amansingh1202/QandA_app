@@ -3,9 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
+    <title>Log In</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <h2>HEllo</h2>
+    <div id="login">
+        <div>
+            <form action="main/" method="POST">
+                {% csrf_token %} 
+                <label for="email">Email:</label>
+                <input @blur="register" v-model="email" name="email" />
+                <div class="error">[[ errors.email ]]</div>
+                <label for="password">Password:</label>
+                <input @blur="register" v-model="password" name="password" />
+                <div class="error">[[ errors.password ]]</div>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let app =  new Vue({
+            el:'#login',
+            delimiters:['[[',']]'],
+            data:{
+                user:{
+                    email:'',
+                    password:'',
+                },
+                valid : true,
+                errors:{},
+                anyError:true,
+            },
+            method:{
+                validateEmail(email){
+                    if (!email.length){
+                        return {valid:false,error:"This field is required"}
+                    }
+                    if (!email.match(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/)){
+                        return {valid:false,error:"Please,enter a valid email"}
+                    }
+                    return {valid:true,error:null}
+                },
+                validatePassword(password){
+                    if (!password.length){
+                        return {valid:false,error:"This field is required"}
+                    }
+                    if(password.length < 7){
+                        return {valid:true,error:"Password too short :("}
+                    }
+                    return {valid:true,error:null}
+                },
+                register(){
+                    this.errors = {}
+                    const vEmail = this.validateEmail(this.user.email);
+                    this.errors.email = vEmail.error;
+                    if(this.valid){
+                        this.valid = vEmail.valid
+                    }
+                    const vPassword = this.validatePassword(this.user.password);
+                    this.errors.password = vPassword.error;
+                    if(this.valid){
+                        this.valid = vPassword.valid
+                    }
+
+                    if((this.errors.email == null) && (this.errors.password == null)){
+                      this.anyError = false;
+                    }
+                    else{
+                      this.anyError = true;
+                    }
+                }
+            }
+        });
+        </script>
+        <style scoped>
+        
+        </style>
 </body>
 </html>
