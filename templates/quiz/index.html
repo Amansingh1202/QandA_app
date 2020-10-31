@@ -23,7 +23,7 @@
                 <div class="error">[[ errors.password ]]</div>
                 <button :disabled="anyError" type="submit">Submit</button>
             </form>
-            <h4 id="error">{{error}}</h4>
+            {% include './messages.html' %}
             <form>
                 <h3>Already a member?<a href="/login/">Sign In</a></h3>
             </form>
@@ -115,11 +115,15 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
 }
-h4{
+ul{
+  list-style-type: none;
+}
+li{
   color:red;
   font-size:1.2em;
   font-family:sans-serif;
   margin-left: 9vw;
+  text-decoration: none;
 }
 h2{
   margin-left: 13vw;
