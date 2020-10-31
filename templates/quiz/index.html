@@ -23,6 +23,7 @@
                 <div class="error">[[ errors.password ]]</div>
                 <button :disabled="anyError" type="submit">Submit</button>
             </form>
+            <h4 id="error">{{error}}</h4>
             <form>
                 <h3>Already a member?<a href="/login/">Sign In</a></h3>
             </form>
@@ -41,6 +42,12 @@
                 valid : true,
                 errors:{},
                 anyError:true,
+            },
+            mounted(){
+              setTimeout(function(){
+                var err = document.getElementById('error');
+                err.remove();
+        },5000);
             },
             methods:{
                 validateName(name){
@@ -107,6 +114,12 @@ body{
   background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),url("/static/quiz/images/background.jpg") ;
   background-repeat: no-repeat;
   background-size: cover;
+}
+h4{
+  color:red;
+  font-size:1.2em;
+  font-family:sans-serif;
+  margin-left: 9vw;
 }
 h2{
   margin-left: 13vw;
