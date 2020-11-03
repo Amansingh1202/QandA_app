@@ -12,15 +12,17 @@
             <h2>Log In</h2>
             <form method="POST">
                 {% csrf_token %} 
-                <label for="email">Email:</label>
-                <input @blur="register" v-model="email" name="email" />
-                <div class="error">[[ errors.email ]]</div>
+                <label for="username">Username:</label>
+                <input @blur="register" v-model="user.username" name="username" />
+                <div class="error">[[ errors.username ]]</div>
                 <label for="password">Password:</label>
-                <input @blur="register" v-model="password" name="password" />
+                <input @blur="register"
+                type="password" v-model="user.password" name="password" />
                 <div class="error">[[ errors.password ]]</div>
-                <button type="submit">Log In</button>
+                <button :disabled="anyError"
+                type="submit">Log In</button>
             </form>
-            <h4 class="error">{{error}}</h4>
+            <h4 id="error">{{error}}</h4>
             <form>
                 <h3>Not a member?<a href="/">Register Now</a></h3>
             </form>
@@ -32,7 +34,7 @@
             delimiters:['[[',']]'],
             data:{
                 user:{
-                    email:'',
+                    username:'',
                     password:'',
                 },
                 valid : true,
@@ -45,39 +47,21 @@
                 err.remove();
         },5000);
             },
-            method:{
-                validateEmail(email){
-                    if (!email.length){
+            methods:{
+                validateName(username){
+                    if (!username.length){
                         return {valid:false,error:"This field is required"}
-                    }
-                    if (!email.match(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/)){
-                        return {valid:false,error:"Please,enter a valid email"}
-                    }
-                    return {valid:true,error:null}
-                },
-                validatePassword(password){
-                    if (!password.length){
-                        return {valid:false,error:"This field is required"}
-                    }
-                    if(password.length < 7){
-                        return {valid:true,error:"Password too short :("}
                     }
                     return {valid:true,error:null}
                 },
                 register(){
                     this.errors = {}
-                    const vEmail = this.validateEmail(this.user.email);
-                    this.errors.email = vEmail.error;
+                    const vname = this.validateName(this.user.username);
+                    this.errors.username = vname.error;
                     if(this.valid){
-                        this.valid = vEmail.valid
+                        this.valid = vname.valid
                     }
-                    const vPassword = this.validatePassword(this.user.password);
-                    this.errors.password = vPassword.error;
-                    if(this.valid){
-                        this.valid = vPassword.valid
-                    }
-
-                    if((this.errors.email == null) && (this.errors.password == null)){
+                    if(this.errors.username == null){
                       this.anyError = false;
                     }
                     else{
@@ -111,6 +95,11 @@ body{
 }
 
 .error{
+  font-size:1.1em;
+  font-family:sans-serif;
+  color:red;
+}
+#error{
   font-size:1.1em;
   font-family:sans-serif;
   color:red;

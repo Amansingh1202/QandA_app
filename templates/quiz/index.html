@@ -12,7 +12,7 @@
             <h2>Sign Up</h2>
             <form method="POST">
               {% csrf_token %}  
-              <label for="name">Enter Full Name:</label><br />
+              <label for="name">Enter Username:</label><br />
                 <input @blur="register" type="text" v-model='user.name' name="name" placeholder="Enter Full name" /><br />
                 <div class="error">[[ errors.name ]]</div>
                 <label for="email">Enter Email:</label><br />
@@ -23,7 +23,7 @@
                 <div class="error">[[ errors.password ]]</div>
                 <button :disabled="anyError" type="submit">Submit</button>
             </form>
-            <h4 class="error">{{error}}</h4>
+            <h4 id="error">{{error}}</h4>
             <form>
                 <h3>Already a member?<a href="/login/">Sign In</a></h3>
             </form>
@@ -143,6 +143,11 @@ h2{
   font-family:sans-serif;
   color:red;
   margin-left: 10vw;
+}
+#error{
+  font-size:1.1em;
+  font-family:sans-serif;
+  color:red;
 }
 h3{
   color: whitesmoke;
