@@ -30,7 +30,7 @@ def login(request):
         password = request.POST['password']
         user = authenticate(username=username,password=password)
         if user is not None:
-            return render(request,'quiz/main.html')
+            return render(request,'quiz/main.html',{'name' : user.username })
         else:
             context = {}
             context['error'] = "Wrong Username or Password"

@@ -54,6 +54,12 @@
                     }
                     return {valid:true,error:null}
                 },
+                validatePassword(password){
+                    if (!password.length){
+                        return {valid:false,error:"This field is required"}
+                    }
+                    return {valid:true,error:null}
+                },
                 register(){
                     this.errors = {}
                     const vname = this.validateName(this.user.username);
@@ -61,7 +67,12 @@
                     if(this.valid){
                         this.valid = vname.valid
                     }
-                    if(this.errors.username == null){
+                    const vPassword = this.validatePassword(this.user.password);
+                    this.errors.password = vPassword.error;
+                    if(this.valid){
+                        this.valid = vPassword.valid
+                    }
+                    if((this.errors.username == null) && (this.errors.password == null)){
                       this.anyError = false;
                     }
                     else{

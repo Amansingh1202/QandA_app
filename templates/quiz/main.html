@@ -3,17 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
+    <title>Quiz App</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <div id="main">
+        <header class="navbar">
+            <div>
+                <svg width="50" height="83" viewBox="0 0 65 109" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M65 60.9859C65 78.7849 50.4493 93.2138 32.5 93.2138C14.5507 93.2138 0 78.7849 0 60.9859C0 43.187 14.5507 109 32.5 109C50.4493 109 65 43.187 65 60.9859Z" fill="#D22342"/> <path d="M65 50.3655C65 68.7366 53.7756 0 34.6429 0C15.5101 0 0 68.7366 0 50.3655C0 31.9944 15.5101 17.1017 34.6429 17.1017C53.7756 17.1017 65 31.9944 65 50.3655Z" fill="#D22342"/> <path d="M46.0234 55.0391C46.0234 58.3359 45.5 61.1797 44.4531 63.5703C43.4062 65.9453 41.9375 67.8047 40.0469 69.1484L46.1406 73.9297L43.0703 76.7656L35.875 71.0469C34.75 71.3281 33.5625 71.4688 32.3125 71.4688C29.625 71.4688 27.2422 70.8125 25.1641 69.5C23.0859 68.1719 21.4688 66.2891 20.3125 63.8516C19.1719 61.3984 18.5859 58.5625 18.5547 55.3438V52.8828C18.5547 49.6016 19.125 46.7031 20.2656 44.1875C21.4062 41.6719 23.0156 39.75 25.0938 38.4219C27.1875 37.0781 29.5781 36.4062 32.2656 36.4062C35.0156 36.4062 37.4297 37.0703 39.5078 38.3984C41.6016 39.7266 43.2109 41.6406 44.3359 44.1406C45.4609 46.625 46.0234 49.5312 46.0234 52.8594V55.0391ZM41.5234 52.8359C41.5234 48.8203 40.7188 45.7266 39.1094 43.5547C37.5156 41.3672 35.2344 40.2734 32.2656 40.2734C29.4375 40.2734 27.2031 41.3594 25.5625 43.5312C23.9375 45.6875 23.1016 48.6875 23.0547 52.5312V55.0391C23.0547 58.9453 23.8672 62.0234 25.4922 64.2734C27.1328 66.5234 29.4062 67.6484 32.3125 67.6484C35.2188 67.6484 37.4688 66.5938 39.0625 64.4844C40.6562 62.3594 41.4766 59.3203 41.5234 55.3672V52.8359Z" fill="#1AF023"/> </svg>
+            </div>
+            <nav>
+                <a href="#" class="navlink">Score History</a>
+                <a href="#" class="nalink">Play Quiz</a>
+                <div class="dropdown navlink">
+                <a href="#">{{name}}</a>
+                <div class="dropdown-content">
+                    <a href="#">Change Avatar</a>
+                    <a href="#">Log Out</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="mainbody">
 
+        </main>
+        <footer>
+
+        </footer>
     </div>
     <script type="text/javascript">
-
+    let app =  new Vue({
+            el:'#main',
+            delimiters:['[[',']]'],
+    })
     </script>
     <style scoped>
-
+   
+   body{
+  margin: 0;
+}
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  background-color: #4F0788;
+  padding:10px 5vw 10px 2vw;
+}
+nav{
+  margin-top: 5vh;
+}
+a{
+  color:#F5B614;
+  font-size:1.4em;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+.navlink{
+    margin-left:10vw;
+  margin-right: 5vw;
+}
+a:hover{
+  color: red;
+  border-bottom: 1px solid pink;
+}
+.dropdown{
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content{
+  display: none;
+  position: absolute;
+  background-color: yellow;
+  color: blueviolet;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.mainbody{
+    height: 100vh;
+    background-color:aliceblue;
+  background-image: -moz-linear-gradient(rgba(41, 43, 182, 0.6), rgba(41, 43, 182, 0.6)),url("/static/quiz/images/mainpage.jpg");
+  background-image: -webkit-linear-gradient(rgba(41,43,182,0.6), rgba(41,43,182,0.6)),url("/static/quiz/images/mainpage.jpg");
+  background-image: linear-gradient(rgba(41,43,182,0.6), rgba(41,43,182,0.6)),url("/static/quiz/images/mainpage.jpg") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
     </style>
 </body>
 </html>
